@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+env
+
 if [[ ! -n ${CI} ]]; then
   echo "This scirpt enabled only for continuous integration" && exit 1
 fi
