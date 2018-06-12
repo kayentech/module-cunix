@@ -1,7 +1,34 @@
 #include <stdlib.h>
 #include <stdarg.h>
-#include <string.h>
-#include <stdio.h>
+
+unsigned int my_strlen(const char *str) {
+  unsigned i;
+  for(i = 0; *(str + i) != '\0'; i++);
+  return i;
+}
+
+int my_atoi(const char *nptr) {
+  int i = 0;
+  char minus = 0;
+
+  if (*nptr == '-') {
+    nptr++;
+    minus = 1;
+  }
+  while (*nptr != '\0') {
+    if (*nptr >= '0' && *nptr <= '9') {
+      i *= 10;
+      i += *nptr - '0';
+    }
+    else {
+      break;
+    }
+    
+    nptr++;
+  }
+
+  return (minus)? i*=-1 : i;
+}
 
 char* my_itoa(int nmb) {
   char *ptr, *buf;
@@ -11,12 +38,9 @@ char* my_itoa(int nmb) {
 
   if (nmb < 0) {
     nmb = -1 * nmb;
-    *buf = '-';
-    buf++;
+    *buf++ = '-';
   }
-
   n = nmb;
-
   while (n > 9) {
     n /= 10;
     i *= 10;
@@ -24,8 +48,7 @@ char* my_itoa(int nmb) {
 
   while (i > 0) {
     n = nmb / i;
-    *buf = '0' + n;
-    buf++;
+    *buf++ = '0' + n;
     nmb -= i * n;
     i /= 10;
   }
@@ -34,86 +57,74 @@ char* my_itoa(int nmb) {
   return ptr;
 }
 
+void append_format(const char** format, char** str, va_list* arg_list) {
+  int padding = 0;
+  unsigned char symb = 0;
+  char *padd_str, *padd_str_start, *st;
+  padd_str_start = malloc(16 * sizeof(char));
+  padd_str = padd_str_start;
+
+  (*format)++;
+
+  if(**format == '%'){
+    *(*str)++ = '%';
+    (*format)++;
+    return;
+  }
+  
+  if(**format == '0'){
+    symb = '0';
+    (*format)++;
+  }
+  
+  while(**format >= '0' && **format <= '9') {
+    *padd_str++ = *(*format)++;
+
+  *padd_str = '\0';
+  padding = my_atoi(padd_str_start);
+  
+  if(**format == 's'){
+    st = va_arg(*arg_list, char *);
+  }
+  if(**format == 'd'){
+    int i = va_arg(*arg_list, int);
+    st = my_itoa(i);
+  }
+  
+  padding -= my_strlen(st);
+  while(padding-- > 0) *(*str)++ = (symb)?symb:' ';
+  
+  while(*st != '\0') 
+    *(*str)++ = *st++;
+    
+  (*format)++;
+  
+  free(padd_str_start);
+}
+
 int my_printf(const char* format, ...) {
   extern long write(int, const char*, unsigned int);
 
   va_list arg_list;
-  unsigned char symb;
-  char *st, *padd_str, *str, *padd_str_init, *str_start_ptr;
-  int padding;
+  char *str, *str_start_ptr;
 
   str = malloc(256 * sizeof(char));
   str_start_ptr = str;
-  padd_str_init = malloc(16 * sizeof(char));
   va_start(arg_list, format);
 
   while(*format != '\0') {
 
     if(*format == '%') {
-      padding = 0;
-      symb = 0;
-      padd_str = padd_str_init;
-
-      format++;
-      while(*format != ' ' && *format != '\0') {
-        if(*format == '%'){
-          *str = '%';
-          str++;
-          format++;
-          break;
-        }
-        if(*format == '0'){
-          symb = '0';
-          format++;
-        }
-        while(*format >= '0' && *format <= '9') {
-          *padd_str = *format;
-          padd_str++;
-          format++;
-        }
-        *padd_str = '\0';
-        padding = atoi(padd_str_init);
-        if(*format == 's'){
-          st = va_arg(arg_list, char *);
-        }
-        if(*format == 'd'){
-          int i = va_arg(arg_list, int);
-          st = my_itoa(i);
-        }
-        padding -= strlen(st);
-        while(padding-- > 0) *str++ = (symb)?symb:' ';
-        while(*st != '\0') {
-          *str = *st;
-          str++;
-          st++;
-        }
-        format++;
-        break;
-      }
+      append_format(&format, &str, &arg_list);
       continue;
     }
-    *str = *format;
-    str++;
-    format++;
+    *str++ = *format++;
   }
   *str = '\0';
 
-  write(1, str_start_ptr, strlen(str_start_ptr));
+  write(1, str_start_ptr, my_strlen(str_start_ptr));
   va_end(arg_list);
-  free(padd_str_init);
   free(str_start_ptr);
+  
   return 0;
 }
-
-/*int main() {
-    my_printf("%s\n", "Hello Printf");
-  my_printf("We need 100%% of %s\n", "use case");
-  my_printf("It's %s's %s (%s)\n", "iGor", "phone", "TEXT");
-  my_printf("[%10s] [%4s] [%8s] [%12s]\n", "THIS", "IS", "PADDED", "TEXT");
-  my_printf("%d\n", 42);
-  my_printf("%d %s\n", 42, "is the answer");
-  my_printf("%010d %s\n", 42, "was padded on 10");
-  my_printf("%10d %s\n", 42, "was also padded using spaces");
-
-  return 0;
- }*/
