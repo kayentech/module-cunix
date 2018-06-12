@@ -14,6 +14,7 @@ int my_atoi(const char *nptr) {
     else {
       break;
     }
+    
     nptr++;
   }
 

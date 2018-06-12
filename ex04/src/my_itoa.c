@@ -8,12 +8,9 @@ char* my_itoa(int nmb) {
 
   if (nmb < 0) {
     nmb = -1 * nmb;
-    *buf = '-';
-    buf++;
+    *buf++ = '-';
   }
-
   n = nmb;
-
   while (n > 9) {
     n /= 10;
     i *= 10;
@@ -21,8 +18,7 @@ char* my_itoa(int nmb) {
 
   while (i > 0) {
     n = nmb / i;
-    *buf = '0' + n;
-    buf++;
+    *buf++ = '0' + n;
     nmb -= i * n;
     i /= 10;
   }
