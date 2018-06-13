@@ -3,9 +3,11 @@ CC					:= gcc
 
 RM					:= rm -rf
 
+FLAGS       := -Wall -Wextra -Werror
+
 LDFLAGS			+= -Llib
 
-CFLAGS			+= -Iinclude -g
+CFLAGS			+= -Iinclude $(FLAGS) -g
 
 SRCS				:= $(wildcard src/*.c)
 
@@ -21,7 +23,7 @@ liblinked_list.a:	src/linked_list.o
 								ar rcs $@ $^
 
 $(TNAME):		$(OBJS)
-						$(CC) -o $@ $(OBJS) $(LDFLAGS)
+						$(CC) $(FLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 clean:
 						$(RM) $(OBJS)

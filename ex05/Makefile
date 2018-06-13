@@ -5,9 +5,11 @@ CC					:= gcc
 
 RM					:= rm -rf
 
-LDFLAGS			+= -Llib
+FLAGS               := -Wall -Wextra -Werror
 
-CFLAGS			+= -Iinclude
+LDFLAGS				+= -Llib
+
+CFLAGS				+= -Iinclude $(FLAGS)
 
 SRCS				:= $(wildcard src/*.c)
 
@@ -18,7 +20,7 @@ NAME				:= puts_test
 all:				$(NAME)
 
 $(NAME):		$(OBJS)
-						$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+						$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 						$(RM) $(OBJS)

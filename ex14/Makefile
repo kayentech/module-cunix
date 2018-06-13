@@ -2,9 +2,11 @@ CC         	    := gcc
 
 RM         		  := rm -rf
 
+FLAGS       := -Wall -Wextra -Werror
+
 LDFLAGS   		  += -Llib
 
-CFLAGS    		  += -Iinclude -g
+CFLAGS    		  += -Iinclude $(FLAGS) -g
 
 GAME_S		  		:= $(wildcard src/*.c)
 
@@ -27,13 +29,13 @@ UNIT_TEST				:= unit_test
 all:        $(GAME)
 
 $(GAME):		$(GAME_O)
-						$(CC) -o $(GAME) $(GAME_O) $(LDFLAGS)
+						$(CC) $(FLAGS) -o $(GAME) $(GAME_O) $(LDFLAGS)
 
 $(FUNC_TEST):		$(FUNC_O)
-								$(CC) -o $(FUNC_TEST) $(FUNC_O) $(LDFLAGS)
+								$(CC) $(FLAGS) -o $(FUNC_TEST) $(FUNC_O) $(LDFLAGS)
 
 $(UNIT_TEST):   $(UNIT_O)
-								$(CC) -o $(UNIT_TEST) $(UNIT_O) $(LDFLAGS)
+								$(CC) $(FLAGS) -o $(UNIT_TEST) $(UNIT_O) $(LDFLAGS)
 
 clean:
 						$(RM) $(UNIT_O) $(FUNC_O) $(GAME_O)

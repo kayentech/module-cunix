@@ -3,9 +3,11 @@ CC					:= gcc
 
 RM					:= rm -rf
 
+FLAGS       := -Wall -Wextra -Werror
+
 LDFLAGS			+= -L../ex07 -llinked_list
 
-CFLAGS			+= -Iinclude -I../ex07/include
+CFLAGS			+= -Iinclude -I../ex07/include $(FLAGS)
 
 SRCS				:= $(wildcard src/*.c)
 
@@ -16,7 +18,7 @@ NAME				:= hash_test
 all:				$(NAME)
 
 $(NAME):		$(OBJS)
-						$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+						$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 						$(RM) $(OBJS)

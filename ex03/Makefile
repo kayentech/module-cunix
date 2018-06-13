@@ -3,9 +3,11 @@ CC					:= gcc
 
 RM					:= rm -rf
 
+FLAGS       := -Wall -Wextra -Werror
+
 LDFLAGS			+= -Llib
 
-CFLAGS			+= -Iinclude
+CFLAGS			+= -Iinclude $(FLAGS)
 
 SRCS				:= $(wildcard src/*.c)
 
@@ -16,7 +18,7 @@ NAME				:= strcpy_test
 all:				$(NAME)
 
 $(NAME):		$(OBJS)
-						$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+						$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 						$(RM) $(OBJS)

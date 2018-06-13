@@ -3,9 +3,11 @@ CC					:= gcc
 
 RM					:= rm -rf
 
+FLAGS       := -Wall -Wextra -Werror
+
 LDFLAGS			+= -Llib
 
-CFLAGS			+= -Iinclude -g
+CFLAGS			+= -Iinclude $(FLAGS) -g
 
 SRCS				:= $(wildcard src/*.c)
 
@@ -16,7 +18,7 @@ NAME				:= binary_tree
 all:				$(NAME)
 
 $(NAME):		$(OBJS)
-						$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+						$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 						$(RM) $(OBJS)
