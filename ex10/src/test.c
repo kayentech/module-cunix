@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 #include <assert.h>
 
 #include "queens.h"
@@ -73,8 +72,6 @@ int check_board(Cell **table, int size) {
 }
 
 void test_n_queens(int n) {
-  srand(time(NULL));
-
   Cell **table;
 
   printf("Testing %dx%d table\n", n, n);
@@ -83,7 +80,7 @@ void test_n_queens(int n) {
   for (int i = 0; i < n; i++)
     table[i] = malloc(n * sizeof(Cell));
 
-  table[rand()%n][rand()%n].figure = 'Q';
+  table[0][3].figure = 'Q';
 
   place_queens(table, n);
 
@@ -99,12 +96,8 @@ void test_n_queens(int n) {
 int main() {
   printf("N-Queens solution test\n");
 
-  test_n_queens(5);
-  test_n_queens(6);
-  test_n_queens(7);
   test_n_queens(8);
   test_n_queens(9);
-  test_n_queens(10);
 
   return 0;
 }
