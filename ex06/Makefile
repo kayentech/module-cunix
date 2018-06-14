@@ -3,11 +3,9 @@ CC					:= gcc
 
 RM					:= rm -rf
 
-FLAGS       := -Wall -Wextra -Werror
+LDFLAGS				+= -Llib
 
-LDFLAGS			+= -Llib
-
-CFLAGS			+= -Iinclude $(FLAGS)
+CFLAGS				+= -Iinclude -Wall -Wextra -Werror
 
 SRCS				:= $(wildcard src/*.c)
 
@@ -17,14 +15,14 @@ NAME				:= printf_test
 
 all:				$(NAME)
 
-$(NAME):		$(OBJS)
-						$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+$(NAME):			$(OBJS)
+						$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 						$(RM) $(OBJS)
 						$(RM) output.test
 
-fclean: 		clean
+fclean: 			clean
 						$(RM) $(NAME)
 
 re: 				fclean all

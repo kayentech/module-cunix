@@ -3,11 +3,9 @@ CC					:= gcc
 
 RM					:= rm -rf
 
-FLAGS       := -Wall -Wextra -Werror
+LDFLAGS				+= -Llib
 
-LDFLAGS			+= -Llib
-
-CFLAGS			+= -Iinclude $(FLAGS) -g
+CFLAGS				+= -Iinclude -Wall -Wextra -Werror -g
 
 SRCS				:= $(wildcard src/*.c)
 
@@ -17,13 +15,13 @@ NAME				:= binary_tree
 
 all:				$(NAME)
 
-$(NAME):		$(OBJS)
-						$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+$(NAME):			$(OBJS)
+						$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 						$(RM) $(OBJS)
 
-fclean: 		clean
+fclean: 			clean
 						$(RM) $(NAME)
 
 re: 				fclean all
@@ -31,5 +29,5 @@ re: 				fclean all
 test:				re
 						@(./$(NAME) && echo "Test success" || echo "Test Fails")
 
-debug:			re
+debug:				re
 						valgrind -v --leak-check=full --track-origins=yes ./$(NAME)

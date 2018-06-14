@@ -3,11 +3,9 @@ CC					:= gcc
 
 RM					:= rm -rf
 
-FLAGS       := -Wall -Wextra -Werror
+LDFLAGS				+= -Llib
 
-LDFLAGS			+= -Llib
-
-CFLAGS			+= -Iinclude $(FLAGS) -g
+CFLAGS				+= -Iinclude -Wall -Wextra -Werror -g
 
 SRCS				:= $(wildcard src/*.c)
 
@@ -15,20 +13,20 @@ OBJS				:= $(SRCS:.c=.o)
 
 TNAME				:= linked_list_test
 
-all:		$(OBJS)
+all:				$(OBJS)
 
 lib: all liblinked_list.a
 
 liblinked_list.a:	src/linked_list.o
 								ar rcs $@ $^
 
-$(TNAME):		$(OBJS)
-						$(CC) $(FLAGS) -o $@ $(OBJS) $(LDFLAGS)
+$(TNAME):			$(OBJS)
+						$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 clean:
 						$(RM) $(OBJS)
 
-fclean: 		clean
+fclean: 			clean
 						$(RM) $(TNAME) $(ANAME)
 
 re: 				fclean all
