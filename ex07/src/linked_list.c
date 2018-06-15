@@ -51,6 +51,7 @@ void *list_pop(node_t **head) {
   while(curr->next->next != NULL){
     curr = curr->next;
   }
+  free(curr->next->data);
   free(curr->next);
   curr->next = NULL;
 }
@@ -67,6 +68,7 @@ void *list_shift(node_t **head) {
   if(*head == NULL) return NULL;
   node_t* curr = *head;
   *head = curr->next;
+  free(curr->data);
   free(curr);
 }
 
@@ -80,6 +82,7 @@ void *list_remove(node_t **head, int pos) {
     cur = cur->next;
   }
   p->next = cur->next;
+  free(cur->data);
   free(cur);
 }
 
