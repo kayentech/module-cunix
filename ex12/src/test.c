@@ -12,9 +12,9 @@ int test_small()
 	foo = (char *) halloc(10000000000000000000);
 	assert(foo == NULL);
 	free(foo);
-  foo = (char *) halloc(0);
+  	foo = (char *) halloc(0);
 	assert(foo == NULL);
-  free(foo);
+  	free(foo);
 	return 0;
 }
 
@@ -29,7 +29,7 @@ int test_long()
 	}
 	for (int i = 0; i < 1000; i++)
 		free(a[i]);
-  free(a);
+  	free(a);
 	return 0;
 }
 
