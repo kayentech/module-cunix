@@ -21,7 +21,7 @@ int       test_visiting()
   char    *val;
 
   root = NULL;
-  for (int i = 0; i <= 10000; i++) {
+  for (int i = 0; i <= 1000; i++) {
     asprintf(&key, "%s%05d", "hello", i);
     asprintf(&val, "%s%05d", "world", i);
     root = insert(root, key, val);
