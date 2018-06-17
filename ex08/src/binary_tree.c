@@ -27,7 +27,7 @@ void print_node(node_t *node) {
   if(!node) return;
   print_node(node->left);
   print_node(node->right);
-  printf("%s : %s\n", node->data, node->key);
+  printf("%s : %s\n", (char*)node->data, (char*)node->key);
 };
 void visit_tree(node_t *node, void (*fp)(node_t *root)) {
   if(!node) return;
