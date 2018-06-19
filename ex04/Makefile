@@ -15,8 +15,8 @@ NAME				:= atoi_test
 
 all:				$(NAME)
 
-$(NAME):			$(OBJS)
-						$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+$(NAME):		$(OBJS)
+						$(CC) -o $(NAME) $(OBJS) $(LDFLAGS) -lm
 
 clean:
 						$(RM) $(OBJS)

@@ -1,0 +1,19 @@
+Hello Printf
+We need 100% of use case
+It's iGor's phone (TEXT)
+[      THIS] [  IS] [  PADDED] [        TEXT]
+42
+42 is the answer
+0000000042 was padded on 10
+        42 was also padded using spaces
+Hello Printf
+We need 100% of use case
+It's iGor's phone (TEXT)
+[      THIS] [  IS] [  PADDED] [        TEXT]
+42
+42 is the answer
+0000000042 was padded on 10
+        42 was also padded using spaces
+Padding of five: [-0042]
+Padding of five: [  -42]
+Padding of five: [-42  ]
