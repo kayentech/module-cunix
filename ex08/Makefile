@@ -29,5 +29,5 @@ re: 				fclean all
 test:				re
 						@(./$(NAME) && echo "Test success" || echo "Test Fails")
 
-debug:				re
-						valgrind -v --leak-check=full --track-origins=yes ./$(NAME)
+debug:				$(NAME)	
+					valgrind -v --leak-check=full --track-origins=yes ./$(NAME)

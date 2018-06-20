@@ -49,4 +49,5 @@ test_functional:  re $(FUNC_TEST)
 test_unit:		  re $(UNIT_TEST)
 	@(./$(UNIT_TEST) -p Player1_1_./filler -p Player2_2_./filler -m test/functional/resources/start_map.map  && echo "Test success" || echo "Test Fails" )
 
-
+debug:              $(NAME)
+					valgrind -v --leak-check=full --track-origins=yes ./$(NAME)

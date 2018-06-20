@@ -3,7 +3,7 @@ CC					:= gcc
 
 RM					:= rm -rf
 
-CFLAGS				+= -Iinclude -Wall -Wextra -Werror
+CFLAGS				+= -Iinclude -Wall -Wextra -Werror -g
 
 SRCS				:= $(wildcard src/*.c)
 
@@ -56,4 +56,5 @@ test_string:    	re_str
 test_string_valgrind:  re_str
 												@(valgrind --track-origins=yes ./$(NAME_STR) && echo "Test success" || echo "Test Fails")
 
-
+debug:              $(NAME)
+					valgrind -v --leak-check=full --track-origins=yes ./$(NAME)
