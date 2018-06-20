@@ -14,5 +14,5 @@ Valgrind is a flexible program for debugging and profiling Linux executables. It
 
 
 
-* `https://www.cs.cmu.edu/~gilpin/tutorial/`
-* `https://www.mankier.com/1/valgrind#`
+* [gdb man](https://www.cs.cmu.edu/~gilpin/tutorial/)
+* [Valgrind man](https://www.mankier.com/1/valgrind#)
