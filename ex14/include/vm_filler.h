@@ -68,8 +68,8 @@ void destroy_core(vmcore_t *vm);
 
 /** main functions **/
 pos_t   parse_answer(char *answer);
-int     exec_players_pool(vmcore_t *vm);
-int     kill_players_pool(vmcore_t *vm);
+void    exec_players_pool(vmcore_t *vm);
+void    kill_players_pool(vmcore_t *vm);
 void    start_game(vmcore_t *vm);
 #endif  /* VM_FILLER_H_ */
 

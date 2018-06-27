@@ -8,18 +8,18 @@
 #define WRITE_SIDE  (1)
 
 // redirect the input (STDIN to the pipe)
-int      exec_filler(char *filepath, int read, int write)
+void      exec_filler(char *filepath, int read, int write)
 {
   dup2(read, 0);
   dup2(write, 1);
   execlp(filepath, filepath, NULL);
 }
 
-int        exec_player(vmcore_t *vm, player_t *p)
+void      exec_player(vmcore_t *vm, player_t *p)
 {
-  pid_t    cpid;
-  int pipe_req[2];
-  int pipe_ans[2];
+  pid_t   cpid;
+  int     pipe_req[2];
+  int     pipe_ans[2];
 
   pipe(pipe_req);
   pipe(pipe_ans);
@@ -43,11 +43,11 @@ int        exec_player(vmcore_t *vm, player_t *p)
     p->out = pipe_req[WRITE_SIDE];
     close(pipe_req[READ_SIDE]);
     close(pipe_ans[WRITE_SIDE]);
-    return(0);
+    return;
   }
 }
 
-int     exec_players_pool(vmcore_t *vm)
+void      exec_players_pool(vmcore_t *vm)
 {
   for (int i = 0; i < vm->nbplayers; i++)
   {
@@ -57,7 +57,7 @@ int     exec_players_pool(vmcore_t *vm)
 }
 
 
-int kill_players_pool(vmcore_t *vm)
+void      kill_players_pool(vmcore_t *vm)
 {
   for (int i = 0; i < vm->nbplayers; i++)
   {

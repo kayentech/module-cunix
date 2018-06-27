@@ -21,9 +21,6 @@ int check_free_space(map_t *map, elem_t *new_elem, pos_t p)
 
 int check_connection(map_t *map, elem_t *new_elem, pos_t p, char symbol)
 {
-  int i_max = map->w - p.y;
-  int j_max = map->h - p.x;
-
   for(int i = 0; i < new_elem->h; i++)
     for(int j = 0; j < new_elem->w; j++)
       if(new_elem->array[i][j] != '.')

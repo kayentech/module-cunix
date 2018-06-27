@@ -6,10 +6,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int       find_winner(vmcore_t *vm)
+int         find_winner(vmcore_t *vm)
 {
-  int     max_index = 0;
-  int     *res = malloc(vm->nbplayers*sizeof(int));
+  int       max_index = 0;
+  int       *res = malloc(vm->nbplayers*sizeof(int));
 
   for(int k = 0; k < vm->nbplayers; k++)
   {
@@ -30,7 +30,7 @@ int       find_winner(vmcore_t *vm)
   return max_index;
 }
 
-int       game_is_on(vmcore_t *vm)
+int         game_is_on(vmcore_t *vm)
 {
   for (int i = 0; i < vm->nbplayers; i++)
     if(vm->players[i]->in_game == 0) return 0;
@@ -44,8 +44,6 @@ int         next_turn(vmcore_t *vm)
 
 void        write_turn(vmcore_t *vm, player_t *current_player)
 {
-  elem_t    el;
-
   if(vm->current_elem != NULL)
   {
     for (int i=0; i<vm->current_elem->h; i++)
@@ -99,7 +97,7 @@ pos_t       parse_answer(char *answer)
   return p;
 }
 
-pos_t reading_position(vmcore_t *vm, player_t *p)
+pos_t       reading_position(vmcore_t *vm, player_t *p)
 {
   pos_t     pos;
   char      buffer[32] = {0};
@@ -123,7 +121,7 @@ void  timeout_reset(struct timeval *timer)
   timer->tv_usec = 0;
 }
 
-void        polling_players(vmcore_t *vm, player_t *p)
+void        polling_players(vmcore_t *vm)
 {
   int       ret;
   pos_t     pos;
@@ -189,10 +187,10 @@ void        polling_players(vmcore_t *vm, player_t *p)
   }
 }
 
-void       generate_start_points(vmcore_t *vm)
+void      generate_start_points(vmcore_t *vm)
 {
   dprintf(vm->log_fd, "generating start points\n");
-  int      x,y;
+  int     x,y;
   for (int i = 0; i < vm->nbplayers; i++)
   {
     x = rand()%vm->map.h;
@@ -203,14 +201,14 @@ void       generate_start_points(vmcore_t *vm)
   dprintf(vm->log_fd, "-----------\n");
 }
 
-void      start_game(vmcore_t *vm)
+void        start_game(vmcore_t *vm)
 {
-  int winner;
+  int       winner;
 
   dprintf(vm->log_fd, "starting the game\n-----------\n");
   generate_start_points(vm);
   exec_players_pool(vm);
-  polling_players(vm, vm->players[vm->turn]);
+  polling_players(vm);
 
   winner = find_winner(vm);
   if(winner == -1)

@@ -10,12 +10,11 @@
 #include "utils.h"
 #include "vm_filler.h"
 
-int         parse_command_line(vmcore_t *vm, int argc, char** argv)
+int       parse_command_line(vmcore_t *vm, int argc, char** argv)
 {
-  char      *playinfo;
-  int       option = 0;
-  int       nbplayers;
-  int       i;
+  char    *playinfo;
+  int     option = 0;
+  int     nbplayers;
 
   nbplayers = 0;
   if (argc == 1)
@@ -38,11 +37,11 @@ int         parse_command_line(vmcore_t *vm, int argc, char** argv)
   return nbplayers;
 }
 
-void read_map(vmcore_t *vm)
+void      read_map(vmcore_t *vm)
 {
-  FILE *fp;
-  int n,m;
-  char ch;
+  FILE    *fp;
+  int     n,m;
+  char    ch;
   char    **curr;
 
   fp = fopen(vm->mapfile, "r");
@@ -69,11 +68,9 @@ void read_map(vmcore_t *vm)
   fclose(fp);
 }
 
-int   create_log(vmcore_t *vm)
+void      create_log(vmcore_t *vm)
 {
   int     fd;
-  int     ret;
-  char    *filename;
 
   fd = open("vm_filler.log", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
   if (fd < 0)
@@ -83,12 +80,9 @@ int   create_log(vmcore_t *vm)
   dprintf(vm->log_fd, "initializing vm core\n");
 }
 
-int         init_core(vmcore_t *vm, int argc, char** argv)
+int       init_core(vmcore_t *vm, int argc, char** argv)
 {
-  char      *filename;
-  FILE      *fp;
-  int       n,m;
-  int       nbplayers = 0;
+  int     nbplayers = 0;
 
   srand(time(NULL));
   create_log(vm);
@@ -116,7 +110,7 @@ int         init_core(vmcore_t *vm, int argc, char** argv)
   return 0;
 }
 
-void        destroy_core(vmcore_t *vm)
+void      destroy_core(vmcore_t *vm)
 {
   for (int i = 0; i < vm->map.h; i++)
     free(vm->map.array[i]);
