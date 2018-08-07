@@ -2,7 +2,7 @@
 # define VM_FILLER_H_
 
 # define MAX_PLAYERS (4)
-# define MAX_ELEM_HEIGTH (7)
+# define MAX_ELEM_HEIGHT (7)
 # define MAX_ELEM_WIDTH (7)
 
 # define PLAYER_REQUEST (1)
@@ -54,17 +54,19 @@ typedef struct  vmcore_s
 
 /** elem functions **/
 elem_t* create_elem();
-int insert_elem(map_t *map, elem_t *new_elem, pos_t p, player_t *player, int log_fd);
-int check_rules(map_t *map, elem_t *new_elem, pos_t p, player_t *player, int log_fd);
-int   find_winner(vmcore_t *vm);
+elem_t* truncate_elem(elem_t *elem);
+int     placable(elem_t *elem, pos_t pos);
+int     insert_elem(map_t *map, elem_t *new_elem, pos_t p, player_t *player, int log_fd);
+int     check_rules(map_t *map, elem_t *new_elem, pos_t p, player_t *player, int log_fd);
+int     find_winner(vmcore_t *vm);
 
 /** map functions **/
-void print_map(vmcore_t *vm);
+void    print_map(vmcore_t *vm);
 //void print_map_player(int fd, vmcore_t *vm, player_t *player);
-void print(int fd, vmcore_t *vm);
+void    print(int fd, vmcore_t *vm);
 /** core functions **/
-int init_core(vmcore_t *vm, int argc, char** argv);
-void destroy_core(vmcore_t *vm);
+int     init_core(vmcore_t *vm, int argc, char** argv);
+void    destroy_core(vmcore_t *vm);
 
 /** main functions **/
 pos_t   parse_answer(char *answer);
