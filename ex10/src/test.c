@@ -62,8 +62,6 @@ int check_diags(Cell **table, int size) {
 }
 
 int check_board(Cell **table, int size) {
-  int queens_on_line = 0;
-
   assert(count_queens(table, size) == size);
   assert(check_rows_and_cols(table, size) == 0);
   assert(check_diags(table, size) == 0);
