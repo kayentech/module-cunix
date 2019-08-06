@@ -7,7 +7,7 @@
 
 void printInt(void *data)
 {
-  printf("%s\n", data);
+  printf("%s\n", (char *)data);
 }
 
 void test_destroy_push(void *data)
@@ -17,7 +17,7 @@ void test_destroy_push(void *data)
 
 void test_destroy_noop(void *data)
 {
-  data;
+  data = data;
 }
 
 void test_debug_print(void *data)
@@ -48,7 +48,6 @@ int test_destroy()
 int test_push()
 {
   node_t  *head;
-  char    *valid;
   char    *str;
 
   asprintf(&str, "head");
@@ -88,7 +87,6 @@ int test_print()
 int test_unshift()
 {
   node_t *head;
-  char   *valid;
   char   *str;
 
   asprintf(&str, "head");
@@ -111,7 +109,6 @@ int test_unshift()
 int test_pop()
 {
   node_t  *head;
-  char    *valid;
   char    *str;
 
   asprintf(&str, "head");
@@ -133,7 +130,6 @@ int test_pop()
 int test_shift()
 {
   node_t   *head;
-  char     *valid;
   char     *str;
 
   asprintf(&str, "Test shift: fail");
@@ -152,7 +148,6 @@ int test_shift()
 int test_remove()
 {
   node_t *head;
-  char   *valid;
   char   *str;
 
   asprintf(&str, "head");
@@ -201,7 +196,7 @@ int test_global()
 
   for(int i = 0; i < 10000; i++)
   {
-    asprintf(&str, "Unshifting", i);
+    asprintf(&str, "Unshifting %d", i);
     list_unshift(&head, str);
   }
 
